@@ -1,0 +1,71 @@
+﻿{
+    "parameters": {
+        "poolId": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of Azure Batch pool which runs the job"
+            }
+        },
+        "jobId": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of Azure Batch job"
+            }
+        },
+        "resolution": {
+            "type": "string",
+            "defaultValue": "428x240",
+            "allowedValues": [
+                "428x240",
+                "854x480"
+            ],
+            "metadata": {
+                "description": "Target video resolution"
+            }
+        }
+    },
+    "job": {
+        "type": "Microsoft.Batch/batchAccounts/jobs",
+        "apiVersion": "2016-12-01",
+        "properties": {
+            "id": "[parameters('jobId')]",
+            "constraints": {
+                "maxWallClockTime": "PT5H",
+                "maxTaskRetryCount": 1
+            },
+            "poolInfo": {
+                "poolId": "[parameters('poolId')]"
+            },
+            "taskFactory": {
+                "type": "taskPerFile",
+                "source": { 
+                    "fileGroup": "ffmpeg-input"
+                },
+                "repeatTask": {
+                    "commandLine": "ffmpeg -i {fileName} -y -s [parameters('resolution')] -strict -2 {fileNameWithoutExtension}_[parameters('resolution')].mp4",
+                    "resourceFiles": [
+                        {
+                            "blobSource": "{url}",
+                            "filePath": "{fileName}"
+                        }
+                    ],
+                    "outputFiles": [
+                        {
+                            "filePattern": "{fileNameWithoutExtension}_[parameters('resolution')].mp4",
+                            "destination": {
+                                "autoStorage": {
+                                    "path": "{fileNameWithoutExtension}_[parameters('resolution')].mp4",
+                                    "fileGroup": "ffmpeg-output"
+                                }
+                            },
+                            "uploadOptions": {
+                                "uploadCondition": "TaskSuccess"
+                            }
+                        }
+                    ]
+                }
+            },
+            "onAllTasksComplete": "terminatejob"
+        }
+    }
+}
