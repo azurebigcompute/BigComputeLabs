@@ -1,5 +1,5 @@
 # CycleCloud Specialized Compute (HPC) Lab
-* Microsoft Specialized Compute (HPC) Team - <mailto:askcyclecloud@microsoft.com>>
+* Microsoft Specialized Compute (HPC) Team - <mailto:askcyclecloud @ microsoft.com>
 * Initial versions by Rob Futrick, December 2017
 
 ## 1. Introduction
