@@ -108,7 +108,7 @@ Build the Virtual Network and subnets. By default, the vnet is named **cyclevnet
 
 For example:
 
-    az group deployment create --name "vnet_deployment" --resource-group "CycleCloudIntroTraining" --template-uri https://raw.githubusercontent.com/azurebigcompute/azcycle/master/deploy-vnet.json --parameters vnet-params.json
+    az group deployment create --name "vnet_deployment" --resource-group "CycleCloudIntroTraining" --template-uri https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/deploy-vnet.json --parameters vnet-params.json
 
 ### 3.4 Build VMs
 
@@ -118,7 +118,7 @@ Build the Virtual Machines:
 
 For example:
 
-    az group deployment create --name "vms_deployment" --resource-group "CycleCloudIntroTraining" --template-uri https://raw.githubusercontent.com/azurebigcompute/azcycle/master/deploy-vms.json --parameters vms-params.json
+    az group deployment create --name "vms_deployment" --resource-group "CycleCloudIntroTraining" --template-uri https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/deploy-vms.json --parameters vms-params.json
 
 
 ## 4. Configure CycleCloud Server
