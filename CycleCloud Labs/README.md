@@ -80,16 +80,14 @@ Start by cloning the repo or otherwise downloading the files:
 
     git clone https://github.com/azurebigcompute/Labs.git
 
-Edit the vms-params.json file. You need to update three parameters: `cycleDownloadUri`, `cycleLicenseSas`, and `rsaPublicKey`.
+Three parameters in the vms-params.json file are of particular importance:
 
 * `cycleDownloadUri` is the location of the CycleCloud installer for this lab
-* `cycleLicenseSas` is the license to use for this lab
+* `cycleLicenseURL` is the URL for the license to use for this lab
 * `rsaPublicKey` is the SSH public key corresponding to the private key you will use to log into the VMs
 
-Use the following values:
+Edit the vms-params.json file to specify the `rsaPublicKey` parameter. The `cycleDownloadUri` and `cycleLicenseSas` parameters have been pre-configured.
 
-* `cycleDownloadUri` = "https://cycleclouddownload.blob.core.windows.net/cyclecloud670"
-* `cycleLicenseSas` = "https://cyclecloudlicense.blob.core.windows.net/mooclicense/license.dat?se=2018-02-16&sp=r&sv=2017-04-17&sr=b&sig=T0wHSHGC5wsI06geur4qagao4OdldMhv9ffiTzZW8fI%3D"
 * `rsaPublicKey` = [Create](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) your own keypair
 
 ### 3.2 Create Resource Group
@@ -156,7 +154,7 @@ For more detailed instructions, see the [Installation Guide](https://docs.cyclec
 
 Click on "Clusters" in the main menu. This will bring up the list of "cluster types" that are available. These are "easy buttons" for clusters, and expose a limited number of parameters in order to simplify and standardize cluster creation.
 
-![New Clusters](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster.png)
+![New Clusters](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster.png)
 
 Note that these are not the only types of clusters available. CycleCloud ships with a limited number of supported cluster types by default, but others are maintained in a central repository annd can easily be imported into CycleCloud. For more details, see the [CycleCloud Admin Guide](https://docs.cyclecomputing.com/administrator-guide-v6.7.0/template_customization).
 
@@ -166,7 +164,7 @@ Adding new cluster types and customizing existing cluster types will be covered 
 
 [Open Grid Scheduler](http://gridscheduler.sourceforge.net/) (OGS) is the open source version of the Sun Grid Engine job scheduler. To create an HPC cluster that is configured with the OGS scheduler, click on "Grid Engine".
 
-![Grid Engine Cluster](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster.png)
+![Grid Engine Cluster](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster.png)
 
 This will bring up the cluster creation wizard.   
 
@@ -176,7 +174,7 @@ In general, cluster creation wizards present the mandatory parameters on the fir
 
 When done, either click directly on "Cluster Software" in the left column, or click on the "Next" button in the lower right corner.
 
-![General Settings](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20General%20Settings.png)
+![General Settings](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20General%20Settings.png)
 
 #### Cluster Software
 
@@ -186,7 +184,7 @@ The Cluster Software tab presents two important parameters:
 
 For this example, we will use a standard Grid Engine cluster and ssh key created by the ARM script. Leave all fields as is.
 
-![Cluster Software](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Cluster%20Software.png)
+![Cluster Software](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Cluster%20Software.png)
 
 #### Compute Backend
 
@@ -194,13 +192,13 @@ The "Compute Backend" tab allows users to:
     1. Customize the type of infrastructure used in the HPC cluster
     2. Control the autoscaling behavior of the cluster, which is *enabled by default*
 
-![Compute Backend](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Compute%20Backend.png)
+![Compute Backend](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Compute%20Backend.png)
 
 #### Networking
 
 On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct vnet created by the ARM template. All other options can be ignored for this cluster.
 
-![Networking](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Networking.png)
+![Networking](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20GE%20Cluster%20-%20Networking.png)
 
 #### Saving the Cluster
 
@@ -212,7 +210,19 @@ Before starting the cluster, we can set an alert to let us know if the accumulat
 
 For this example, we've set the alert to $100. Set the recipient to be your email address:  
 
-![CostAlert](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster%20-%20Cluster%20Usage%20Alert.png)
+![CostAlert](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster%20-%20Cluster%20Usage%20Alert.png)
+
+
+### 5.3 Starting the Cluster
+
+Start the cluster by clicking on the "Start" link underneath the cluster's name in the cluster summary window. 
+ 
+![ClusterStartLink](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20Cluster%20Start%20Link.png)
+
+Once the cluster is started, it will take several minutes to provision and orchestrate the VM for the cluster's master node as well as install and configure the Grid Engine job queue and scheduler. Progress can be monitored in the cluster VM details tab, as well as in the event log.
+ 
+![ClusterStarted](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20New%20Cluster%20-%20Cluster%20Started.png)
+
 
 ## 6. Running Jobs on the HPC Cluster
 
@@ -299,7 +309,7 @@ Confirm the jobs are in the queue by running the qstat command again:
 
 At this point, no execute nodes have been provisioned, because the cluster is configured to autoscale. The cluster will detect that the job queue has work in it, and will provision compute nodes to execute the jobs. By default, the system will try to provision a core of compute power for every job, although this can be changed easily. Since there are 100 jobs, it will request 100 cores - but the cluster has a scale limit of 16 in place, so no more than 16 cores will be provisioned.
 
-![Autoscaling](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20Cluster%20Autoscaling.png)
+![Autoscaling](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20Cluster%20Autoscaling.png)
 
 When the jobs are complete and the nodes are idle, they will scale down as well.
 
@@ -310,7 +320,7 @@ For a more in-depth discussion of CycleCloud's autoscaling behavior, plugins, an
 
 When we no longer need the cluster, click "Terminate" to shutdown all of the infrastructure. Note that all underlying Azure resources will be cleaned up as part of the cluster termination. The operation may take several minutes.
 
-![ClusterTermination](https://raw.githubusercontent.com/rfutrick/Labs/master/CycleCloud%20Labs/images/CC%20-%20Cluster%20Termination.png)
+![ClusterTermination](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud%20Labs/images/CC%20-%20Cluster%20Termination.png)
 
 
 # End of the Lab
