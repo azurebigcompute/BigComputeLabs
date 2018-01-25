@@ -4,9 +4,11 @@
   "parameters": {
     "vnetName": { "value": "cyclevnet" },
     "adminJbIPName": { "value": "adminjb_ip" },
+    "adminjbvmSize": { "value": "Standard_D2_v3" },
+    "cyclevmSize": { "value": "Standard_D2_v3" },
     "cycleIPName": { "value": "cycleserver_ip" },
-    "cycleDownloadUri": { "value": "https://cycleclouddownload.blob.core.windows.net/cyclecloud670" },
+    "cycleDownloadUri": { "value": "https://cycleclouddownload.blob.core.windows.net/cyclecloud670/cycle_server-all-linux64.tar.gz" },
     "cycleLicenseURL": {"value": "https://cyclecloudlicense.blob.core.windows.net/mooclicense/license.dat?se=2018-02-16&sp=r&sv=2017-04-17&sr=b&sig=T0wHSHGC5wsI06geur4qagao4OdldMhv9ffiTzZW8fI%3D"},
-    "rsaPublicKey": { "value": "ssh-rsa <your key>" }
+    "rsaPublicKey": { "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl4nmNKxmLAL1HymJZnJlbjp2lCXpNMHntA0MRB+UhRJu3tWwy1HZXvj1ynQCF7cLbwCZPPHrd764FKUs9AZLs2dP6KfLBSguvrB5Sw9Fy8z450KTGA9LZDpjeB+tNhWcjkMCfJTl2nMhWp9xJqnyQJ3KYbCdc565djG0S0t+fw84CRnOYdNvcIG1q7j4/EbDYgYwS3lFxVCuzZqrNVOxQqLPA+ws5lu/Vm8Q9AReHeYHlqx+XvBhnXkunuII8B7jf9oLkqTmifqdLX9+o2oYMYJR/Jj2/aTq4t9WD/d/WBiRLWUEuM6oVZ9KTsgl6CpxDSlX4ZwGzImHLNdEVWKIN"}
   }
 }

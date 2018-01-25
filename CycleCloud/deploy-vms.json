@@ -16,6 +16,20 @@
         "description": "Public IP name for the Admin Jump Box"
       }
     },
+    "adminjbvmSize": {
+      "maxLength": 32,
+      "type": "string",
+      "metadata": {
+        "description": "Azure instance type for the Admin Jump Box VM"
+      }
+    },
+    "cyclevmSize": {
+      "maxLength": 32,
+      "type": "string",
+      "metadata": {
+        "description": "Azure instance type for the Cycle VM"
+      }
+    },
     "cycleIPName": {
       "maxLength": 32,
       "type": "string",
@@ -46,13 +60,13 @@
   },
   "variables": {
     "resourceLocation": "[resourceGroup().location]",
-    "adminjbvmSize": "Standard_D2s_v3",
+    "adminjbvmSize": "[parameters('adminjbvmSize')]",
     "adminjbName": "adminjb",
     "adminjbNic": "adminjb-nic",
     "admin_nsg_name": "admin-nsg",
     "admin_subnet": "admin",
 
-    "cyclevmSize": "Standard_D8s_v3",
+    "cyclevmSize": "[parameters('cyclevmSize')]",
     "cycleName": "cycleserver",
     "cycleNic": "cycle-nic",
     "cycle_nsg_name": "cycle-nsg",
