@@ -30,6 +30,20 @@
         "description": "Azure instance type for the Cycle VM"
       }
     },
+    "adminjbvmStorage": {
+      "maxLength": 32,
+      "type": "string",
+      "metadata": {
+        "description": "Type of storage for the Admin Jump Box VM: Premium_LRS or Standard_LRS"
+      }
+    },
+    "cyclevmStorage": {
+      "maxLength": 32,
+      "type": "string",
+      "metadata": {
+        "description": "Type of storage for the Cycle VM: Premium_LRS or Standard_LRS"
+      }
+    },
     "cycleIPName": {
       "maxLength": 32,
       "type": "string",
@@ -61,12 +75,14 @@
   "variables": {
     "resourceLocation": "[resourceGroup().location]",
     "adminjbvmSize": "[parameters('adminjbvmSize')]",
+    "adminjbvmStorage": "[parameters('adminjbvmStorage')]",
     "adminjbName": "adminjb",
     "adminjbNic": "adminjb-nic",
     "admin_nsg_name": "admin-nsg",
     "admin_subnet": "admin",
 
     "cyclevmSize": "[parameters('cyclevmSize')]",
+    "cyclevmStorage": "[parameters('cyclevmStorage')]",
     "cycleName": "cycleserver",
     "cycleNic": "cycle-nic",
     "cycle_nsg_name": "cycle-nsg",
@@ -100,7 +116,7 @@
             "createOption": "FromImage",
             "caching": "ReadWrite",
             "managedDisk": {
-              "storageAccountType": "Premium_LRS"
+              "storageAccountType": "[variables('adminjbvmStorage')]"  
             }
           },
           "dataDisks": []
@@ -189,7 +205,7 @@
             "createOption": "FromImage",
             "caching": "ReadWrite",
             "managedDisk": {
-              "storageAccountType": "Premium_LRS"
+              "storageAccountType": "[variables('cyclevmStorage')]"  
             }
           },
           "dataDisks": [
@@ -198,7 +214,7 @@
               "createOption": "Empty",
               "caching": "ReadOnly",
               "managedDisk": {
-                "storageAccountType": "Premium_LRS"
+                "storageAccountType": "[variables('cyclevmStorage')]"  
               },
               "diskSizeGB": 1023
             }
