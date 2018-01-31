@@ -52,9 +52,12 @@ If you need to retrieve your Azure subscription ID, the following command will l
 
 If you don't have a service principal available, you can create one using this example. Be sure to substitute the appropriate name and duration if you use it. Note that the service principal **name must be unique**.
 
-Save the output of the create command. You'll need the **appId**, **password**, and **tenant ID**.
 ```
         $ az ad sp create-for-rbac --name CcIntroTraining --years 1
+```
+        
+This will output the following. Save the **appId**, **password**, and **tenant ID**. 
+```
         {
                 "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                 "displayName": "CcIntroTraining",
