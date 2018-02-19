@@ -1,1 +1,0 @@
-# Rendering & Transcoding Labs #
