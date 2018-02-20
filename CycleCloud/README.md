@@ -93,7 +93,7 @@ Edit the vms-params.json file to specify the `rsaPublicKey` parameter. The `cycl
 
 * `rsaPublicKey` = [Create](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) your own keypair
 
-### 3.2 Create Resource Group
+### 3.2 Create Resource Group and Storage Account
 
 Create a resource group in the region of your choice. Note that resource group names are unique within a subscription:
 
@@ -103,6 +103,14 @@ For example, you could use "CycleCloudIntroTraining" as the resource group name 
 
     az group create --name "CycleCloudIntroTraining" --location "West Europe"
 
+Create a storage account in the region of your choice.  
+
+    az storage account create --name "{STORAGE-NAME}" --group "{RESOURCE-GROUP}" --location "{REGION}" --sku "Standard_LRS"
+
+For example, you could use "CycleCloudStorageAccount" as the storage name and western Europe as the region:
+
+    az storage account create --name "CycleCloudStorageAccount" --group "CycleCloudIntroTraining" --location "West Europe" --sku "Standard_LRS"
+    
 ### 3.3 Setup Networking
 
 Build the Virtual Network and subnets. By default, the vnet is named **cyclevnet**:
