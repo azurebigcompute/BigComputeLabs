@@ -235,7 +235,7 @@ Start the cluster by clicking on the "Start" link underneath the cluster's name 
 Once the cluster is started, it will take several minutes to provision and orchestrate the VM for the cluster's master node as well as install and configure the Grid Engine job queue and scheduler. Progress can be monitored in the cluster VM details tab, as well as in the event log.
  
 ![ClusterStarted](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud/images/CC%20-%20New%20Cluster%20-%20Cluster%20Started.png)
-
+ 
 
 ## 6. Running Jobs on the HPC Cluster
 
@@ -269,7 +269,7 @@ Then, as the root user, initialize the CycleCloud CLI:
 
     [root@cycleserver ~]$ cyclecloud initialize
 
-Note: supply the admin username and password specified when creating the initial CycleCloud user account.
+Note: supply the admin username and password specified when creating the initial CycleCloud user account. The CycleServer URL is the FQDN of the cycleserver, for example https://cycleserver63i64inm.westeurope.cloudapp.azure.com
 
 ### 6.3 Connecting to the Grid Engine Master
 
