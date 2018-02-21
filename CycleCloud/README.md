@@ -201,7 +201,7 @@ The "Compute Backend" tab allows users to:
 
 #### Networking
 
-On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct vnet created by the ARM template. All other options can be ignored for this cluster.
+On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct subnet created by the ARM template. All other options can be ignored for this cluster.
 
 ![Networking](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud/images/CC%20-%20New%20GE%20Cluster%20-%20Networking.png)
 
