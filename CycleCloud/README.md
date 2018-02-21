@@ -285,7 +285,7 @@ Once the CLI is initialized, we can use it to connect to the master node. In the
 
     [root@cycleserver ~]$ cyclecloud connect master -c cc-intro-training
 
-![ClusterConnect]images/CC%20-%20Connect%20button.png)
+![ClusterConnect](images/CC%20-%20Connect%20button.png)
 
 Executing that command should produce:
 
