@@ -1,1 +1,1 @@
-az vm list-ip-addresses
+az vm list-ip-addresses -o table
