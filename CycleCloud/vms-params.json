@@ -10,7 +10,7 @@
     "cyclevmStorage": { "value": "Standard_LRS" },
     "cycleIPName": { "value": "cycleserver_ip" },
     "cycleDownloadUri": { "value": "https://cycleclouddownload.blob.core.windows.net/cyclecloud680" },
-    "cycleLicenseURL": {"value": "https://cyclecloudlicense.blob.core.windows.net/mooclicense/license.dat?se=2018-02-16&sp=r&sv=2017-04-17&sr=b&sig=T0wHSHGC5wsI06geur4qagao4OdldMhv9ffiTzZW8fI%3D"},
+    "cycleLicenseURL": {"value": "https://cyclecloudlicense.blob.core.windows.net/license/license.dat?se=2018-06-30&sp=r&sv=2017-04-17&sr=b&sig=nCtLPUSjS7PaOcyq8R6IU32KY/LBktQakyKpnxXtXHE%3D"},
     "rsaPublicKey": { "value": "ssh-rsa <your key>"}
   }
 }
