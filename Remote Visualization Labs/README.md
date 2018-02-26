@@ -131,12 +131,17 @@ Download and use any VNC viewer to connect to your remote workstation desktop.
 
 ## 4. Using Graphical Applications
 
-### 4.1 3D utilities
-- glxgears
-- heaven
+### 4.1 3D Benchmarking
+- glxgears (should be already installed)
+- glmark2
+- Heaven - <a href="https://benchmark.unigine.com/heaven">https://benchmark.unigine.com/heaven</a>
 
-### 4.2 GPU benchmarking
-
+	sudo su -
+	wget http://assets.unigine.com/d/Unigine_Heaven-4.0.run
+	chmod +x Unigine_Heaven-4.0.run
+	./Unigine_Heaven-4.0.run
+	cd Unigine_Heaven-4.0
+	./heaven
 
 ## 5. Other GPU desktop tools
 
