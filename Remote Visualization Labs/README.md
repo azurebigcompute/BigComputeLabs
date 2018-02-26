@@ -14,9 +14,9 @@ In HPC, our focus is on performance.  This is not just for during a simulation -
 
 ### 1.3  GPUs (Graphical Processing Units)
 In Azure at present, we use GPUs from NVIDIA.  We have these available in our N-series VMs.  There are a few types of these VMs: 
-- NV (Visualisation) - these are the VM types used for remote workstations, and the type we focus on here. 
-- NC (Compute) - these are also called "GPGPUs", and are used for HPC calculations
-- ND (Deep Learning) - these are similar to NC, and are used for HPC calculations, but specialised for Deep Learning & AI workloads (i.e. training models). 
+- **NV (Visualisation)** - these are the VM types used for remote workstations, and the type we focus on here. 
+- **NC (Compute)** - these are also called "GPGPUs", and are used for HPC calculations
+- **ND (Deep Learning)** - these are similar to NC, and are used for HPC calculations, but specialised for Deep Learning & AI workloads (i.e. training models). 
 
 Here we focus on the first type - for visualisation. 
 
@@ -31,9 +31,12 @@ We will follow these steps:
 You can access Azure via <a href="https://portal.azure.com">https://portal.azure.com</a>.  You may have a subscription already.  If not, you can sign up for a subscription. 
 
 ### 2.2 Create a VM (Linux)
+If using the Azure CLI, you can use a command like: 
+
+	az vm create --name vizlinux --resource-group hpclab --image OpenLogic:CentOS:7.4:7.4.20180118 --size Standard_NV6 --storage-sku Standard_LRS --generate-ssh-keys –o table
 
 ### 2.3 Login to VM
-
+You can log in to the VM with SSH. 
 
 ## 3. Configuring the GPU
 
@@ -46,6 +49,8 @@ Firstly, follow instructions on the Azure documentation (N Series Linux Driver S
 In brief, and for convenience, these steps are: 
 
 1. Update the Linux Kernel
+
+Use the following commands: 
 
 	sudo yum update
 	sudo yum install kernel-devel
@@ -61,6 +66,8 @@ Create a file /etc/modprobe.d/nouveau.conf ("nano /etc/modprobe.d/nouveau.conf")
 
 3. Reboot the VM, and install the NVIDIA Grid driver
 
+Use the following commands: 
+
 	wget -O NVIDIA-Linux-x86_64-384.111-grid.run https://go.microsoft.com/fwlink/?linkid=849941  
 	chmod +x NVIDIA-Linux-x86_64-384.111-grid.run
 	sudo ./NVIDIA-Linux-x86_64-384.111-grid.run
@@ -72,6 +79,8 @@ When you are asked if you want to run nvidia-xconfig to update your X configurat
 
 4. Update the NVIDIA Grid Conf file (configuration)
 
+Use the following command: 
+
 	sudo cp /etc/nvidia/gridd.conf.template /etc/nvidia/gridd.conf
 
 Add the following to /etc/nvidia/gridd.conf:
@@ -80,11 +89,18 @@ Add the following to /etc/nvidia/gridd.conf:
 
 5. Verify driver installation
 
+Use the following command: 
+
 	nvidia-smi
 
 ### 3.2 Configuring Graphical Desktop
 
 In this step, we will ensure the Linux Graphical Desktop software (GNOME) and graphical capabilities (X server) is installed, and is configured to boot at startup.  We will also set up a capability to connect to the desktop remotely, using the "x11vnc" software (VNC). 
+
+Install some graphical software tools:
+
+	yum install -y x11vnc glx-utils mesa-libGLw-devel xorg-x11-server-devel qt qt-devel glew-devel qwt-devel g++ gcc xorg-x11-apps VirtualGL telnet xterm
+	yum -y groupinstall 'GNOME Desktop'
 
 Edit /etc/gdm/custom.conf to reflect the following:
 
@@ -101,12 +117,15 @@ Edit /etc/gdm/Init/Default, and just before exit 0 (last line):
 
 Set Linux to boot up with the Graphical Service by default, then reboot:
 
-	systemctl disable firstboot
-	systemctl disable firstconfig
+	systemctl disable firstboot-graphical
 	systemctl set-default graphical.target
 	reboot
 
 ### 3.3 Remotely connect (VNC)
+
+Download and use any VNC viewer to connect to your remote workstation desktop. 
+
+![VNC Viewer](vncgpu.png)
 
 ### 3.4 Enabling multiple users
 
