@@ -46,30 +46,41 @@ Firstly, follow instructions on the Azure documentation (N Series Linux Driver S
 In brief, and for convenience, these steps are: 
 
 1. Update the Linux Kernel
+
 	sudo yum update
 	sudo yum install kernel-devel
 	sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 	sudo yum install dkms
 
 2. Disable ("blacklist") the Nouveau driver (this is an Open Source driver, not NVIDIA)
+
 Create a file /etc/modprobe.d/nouveau.conf ("nano /etc/modprobe.d/nouveau.conf") with the following contents: 
+
 	blacklist nouveau
 	blacklist lbm-nouveau
 
 3. Reboot the VM, and install the NVIDIA Grid driver
+
 	wget -O NVIDIA-Linux-x86_64-384.111-grid.run https://go.microsoft.com/fwlink/?linkid=849941  
 	chmod +x NVIDIA-Linux-x86_64-384.111-grid.run
 	sudo ./NVIDIA-Linux-x86_64-384.111-grid.run
+
 When you are asked if you want to run nvidia-xconfig to update your X configuration, say Yes. When the driver installation is complete, check that the file /etc/X11/xorg.conf has been updated with the details of your NVIDIA driver. 
+
 	nvidia-xconfig --query-gpu-info
 	cat /etc/X11/xorg.conf
 
 4. Update the NVIDIA Grid Conf file (configuration)
+
 	sudo cp /etc/nvidia/gridd.conf.template /etc/nvidia/gridd.conf
+
 Add the following to /etc/nvidia/gridd.conf:
+
 	IgnoreSP=TRUE
 
 5. Verify driver installation
+
+	nvidia-smi
 
 ### 3.2 Configuring Graphical Desktop
 
