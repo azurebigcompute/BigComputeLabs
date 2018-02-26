@@ -135,6 +135,7 @@ Download and use any VNC viewer to connect to your remote workstation desktop.
 - glxgears (should be already installed)
 - glmark2
 - Heaven - <a href="https://benchmark.unigine.com/heaven">https://benchmark.unigine.com/heaven</a>
+
 Use the following commands: 
 
 	sudo su -
