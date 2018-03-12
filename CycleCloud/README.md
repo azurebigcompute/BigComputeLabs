@@ -209,7 +209,7 @@ The "Compute Backend" tab allows users to:
 
 #### Networking
 
-On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct vnet created by the ARM template. All other options can be ignored for this cluster.
+On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct subnet created by the ARM template. All other options can be ignored for this cluster.
 
 ![Networking](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud/images/CC%20-%20New%20GE%20Cluster%20-%20Networking.png)
 
@@ -268,14 +268,32 @@ Once on the CycleCloud VM, we'll need to initialize the CycleCloud CLI. First, c
 Then, as the root user, initialize the CycleCloud CLI:
 
     [root@cycleserver ~]$ cyclecloud initialize
+    CycleServer URL: [http://localhost:8080] https://localhost:443
+    Detected untrusted certificate. Allow? [no] yes
+    ...
 
 Note: supply the admin username and password specified when creating the initial CycleCloud user account. The CycleServer URL is the FQDN of the cycleserver, for example https://cycleserver63i64inm.westeurope.cloudapp.azure.com
+
+    CycleServer username: [root] ...
+    CycleServer password:...
+    Generating CycleServer key...
+    Initial account already exists, skipping initial account creation.
+    CycleCloud configuration stored in /root/.cycle/config.ini
+    Wrote cluster template file '~/.cycle/condor_template.txt'.
+    Wrote cluster template file '~/.cycle/kafka.txt'.
+    Wrote cluster template file '~/.cycle/pbspro_template.txt'.
+    Wrote cluster template file '~/.cycle/redis-cluster.txt'.
+    Wrote cluster template file '~/.cycle/sge_template.txt'.
+    Wrote cluster template file '~/.cycle/zookeeper.txt'.
+    [root@cycleserver ~]#
 
 ### 6.3 Connecting to the Grid Engine Master
 
 Once the CLI is initialized, we can use it to connect to the master node. In the CycleCloud GUI, click on "connect" to get the connection information. The connection string should be similar to the following, but with your cluster name substituted:
 
     [root@cycleserver ~]$ cyclecloud connect master -c cc-intro-training
+
+![ClusterConnect](images/CC%20-%20Connect%20button.png)
 
 Executing that command should produce:
 
