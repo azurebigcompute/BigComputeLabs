@@ -1,0 +1,27 @@
+{
+  "startTask": {
+    "commandLine":"./deploy_script.sh",
+    "resourceFiles": [ 
+		{
+		  "blobSource":"https://shipyarddata.blob.core.windows.net/drosophila/deploy_script.sh",
+		  "filePath":"deploy_script.sh"
+		},  
+		{
+		  "blobSource":"https://shipyarddata.blob.core.windows.net/drosophila/runme.tar",
+		  "filePath":"runme.tar"
+		}
+	],
+    "environmentSettings": [ ],
+	"userIdentity": {
+      "autoUser": {
+        "scope":"pool",
+        "elevationLevel":"Admin"
+      }
+    },	
+    "maxTaskRetryCount":0,
+    "waitForSuccess":true
+  },
+  "applicationPackageReferences": [ ],
+  "certificateReferences": [ ],
+  "metadata": [ ]
+}
