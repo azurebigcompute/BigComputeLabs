@@ -1,8 +1,9 @@
 # Azure Advanced Cloud Workshop for Partners: April 2018 #
 
 Slides: https://github.com/azurebigcompute/BigComputeLabs/blob/master/HPC-Cloud-Workshop-FY18-FullDeck-2march2018.pdf 
-https://github.com/azurebigcompute 
-https://github.com/tojozefi/scfelab
+
+Labs1: https://github.com/azurebigcompute 
+Labs2: https://github.com/tojozefi/scfelab
 
 ## Fundamentals Labs ##
 
