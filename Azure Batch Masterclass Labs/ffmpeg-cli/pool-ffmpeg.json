@@ -1,0 +1,44 @@
+{
+    "parameters": {
+        "nodeCount": {
+            "type": "int",
+	    "defaultValue": "1",
+            "metadata": {
+                "description": "The number of pool nodes"
+            }
+        },
+        "poolId": {
+            "type": "string",
+	    "defaultValue": "ffmpegPool",
+            "metadata": {
+                "description": "The pool id"
+            }
+        }
+    },
+    "pool": {
+        "type": "Microsoft.Batch/batchAccounts/pools",
+        "apiVersion": "2016-12-01",
+        "properties": {
+            "id": "[parameters('poolId')]",
+            "virtualMachineConfiguration": {
+                "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "16.04.0-LTS",
+                    "version": "latest"
+                },
+                "nodeAgentSKUId": "batch.node.ubuntu 16.04"
+            },
+            "vmSize": "STANDARD_D3_V2",
+            "targetDedicatedNodes": "[parameters('nodeCount')]",
+            "enableAutoScale": false,
+            "maxTasksPerNode": 2,
+            "packageReferences": [
+                {
+                    "type": "aptPackage",
+                    "id": "ffmpeg"
+                }
+            ]
+        }
+    }
+}

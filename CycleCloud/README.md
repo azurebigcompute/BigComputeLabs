@@ -93,7 +93,7 @@ Edit the vms-params.json file to specify the `rsaPublicKey` parameter. The `cycl
 
 * `rsaPublicKey` = [Create](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) your own keypair
 
-### 3.2 Create Resource Group
+### 3.2 Create Resource Group and Storage Account
 
 Create a resource group in the region of your choice. Note that resource group names are unique within a subscription:
 
@@ -103,6 +103,14 @@ For example, you could use "CycleCloudIntroTraining" as the resource group name 
 
     az group create --name "CycleCloudIntroTraining" --location "West Europe"
 
+Create a storage account in the region of your choice.  
+
+    az storage account create --name "{STORAGE-NAME}" --group "{RESOURCE-GROUP}" --location "{REGION}" --sku "Standard_LRS"
+
+For example, you could use "CycleCloudStorageAccount" as the storage name and western Europe as the region:
+
+    az storage account create --name "CycleCloudStorageAccount" --group "CycleCloudIntroTraining" --location "West Europe" --sku "Standard_LRS"
+    
 ### 3.3 Setup Networking
 
 Build the Virtual Network and subnets. By default, the vnet is named **cyclevnet**:
@@ -201,7 +209,7 @@ The "Compute Backend" tab allows users to:
 
 #### Networking
 
-On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct vnet created by the ARM template. All other options can be ignored for this cluster.
+On this tab, select the "cyclevnet-compute" subnet. This will place the compute infrastructure into the correct subnet created by the ARM template. All other options can be ignored for this cluster.
 
 ![Networking](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud/images/CC%20-%20New%20GE%20Cluster%20-%20Networking.png)
 
@@ -227,7 +235,7 @@ Start the cluster by clicking on the "Start" link underneath the cluster's name 
 Once the cluster is started, it will take several minutes to provision and orchestrate the VM for the cluster's master node as well as install and configure the Grid Engine job queue and scheduler. Progress can be monitored in the cluster VM details tab, as well as in the event log.
  
 ![ClusterStarted](https://raw.githubusercontent.com/azurebigcompute/Labs/master/CycleCloud/images/CC%20-%20New%20Cluster%20-%20Cluster%20Started.png)
-
+ 
 
 ## 6. Running Jobs on the HPC Cluster
 
@@ -260,14 +268,32 @@ Once on the CycleCloud VM, we'll need to initialize the CycleCloud CLI. First, c
 Then, as the root user, initialize the CycleCloud CLI:
 
     [root@cycleserver ~]$ cyclecloud initialize
+    CycleServer URL: [http://localhost:8080] https://localhost:443
+    Detected untrusted certificate. Allow? [no] yes
+    ...
 
-Note: supply the admin username and password specified when creating the initial CycleCloud user account.
+Note: supply the admin username and password specified when creating the initial CycleCloud user account. The CycleServer URL is the FQDN of the cycleserver, for example https://cycleserver63i64inm.westeurope.cloudapp.azure.com
+
+    CycleServer username: [root] ...
+    CycleServer password:...
+    Generating CycleServer key...
+    Initial account already exists, skipping initial account creation.
+    CycleCloud configuration stored in /root/.cycle/config.ini
+    Wrote cluster template file '~/.cycle/condor_template.txt'.
+    Wrote cluster template file '~/.cycle/kafka.txt'.
+    Wrote cluster template file '~/.cycle/pbspro_template.txt'.
+    Wrote cluster template file '~/.cycle/redis-cluster.txt'.
+    Wrote cluster template file '~/.cycle/sge_template.txt'.
+    Wrote cluster template file '~/.cycle/zookeeper.txt'.
+    [root@cycleserver ~]#
 
 ### 6.3 Connecting to the Grid Engine Master
 
 Once the CLI is initialized, we can use it to connect to the master node. In the CycleCloud GUI, click on "connect" to get the connection information. The connection string should be similar to the following, but with your cluster name substituted:
 
     [root@cycleserver ~]$ cyclecloud connect master -c cc-intro-training
+
+![ClusterConnect](images/CC%20-%20Connect%20button.png)
 
 Executing that command should produce:
 
