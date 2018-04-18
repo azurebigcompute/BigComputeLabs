@@ -30,7 +30,8 @@ Lab 6: Azure Batch Labs
 https://github.com/azurebigcompute/BigComputeLabs/tree/master/Azure%20Batch%20Masterclass%20Labs 
 Alternative: 
 https://github.com/tojozefi/scfelab/blob/master/Exercise3_Image_processing_with_Azure_Batch.pdf 
-Advanced Labs (Choice): 
+
+## Advanced Labs (Free to Choose) ##
 
 Lab 7: Containers with Batch Shipyard
 https://github.com/Azure/batch-shipyard 
