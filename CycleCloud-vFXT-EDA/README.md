@@ -245,3 +245,6 @@ Now you're able to add the application to as cluster-init to the cluster.  This 
 
 See that the `default` spec runs on the execute nodes for setting up the runtime environment, and the `install` spec runs on the master node to install the app in a shared location (the vFXT cluster).
 
+Note that it can take some time to install the Xcelium tools.  Track it's progress in the cluster-init log:
+
+    tail -f /opt/cycle/jetpack/logs/cluster-init/xcelium/install/scripts/050.install.sh.out

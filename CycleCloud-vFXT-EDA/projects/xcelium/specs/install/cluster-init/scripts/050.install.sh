@@ -8,16 +8,13 @@ set -ex
 #    Space Available : -9223372036854775808 Bytes
 #    Space Required : 26722 Bytes
 
+source /etc/profile.d/cadence.sh
+
 TEMP_DIR=/mnt/resource
 if [ ! -d "$TEMP_DIR" ]; then
   TEMP_DIR=/tmp
 fi
 mkdir $TEMP_DIR/cadence
-
-CADENCE_INSTALL=$(jetpack config cadence.install_dir)/cadence \
-    || CADENCE_INSTALL=$(jetpack config cyclecloud.mounts.vfxt.mountpoint)/cadence \
-    || CADENCE_INSTALL=$(jetpack config gluster.mountpoint)/cadence \
-    || CADENCE_INSTALL=/opt/tools/cadence
 
 CACHE_DIR=/mnt/resource
 if [ ! -d "$CACHE_DIR" ]; then
@@ -41,7 +38,7 @@ mkdir -p $CADENCE_INSTALL
     ArchiveDirectory=$CACHE_DIR \
     InstallDirectory=$TEMP_DIR/cadence
 
-rsync -av  $TEMP_DIR/cadence $CADENCE_INSTALL/cadence
+rsync -av  $TEMP_DIR/cadence $CADENCE_INSTALL
 
 jetpack log "XCELIUM installation complete."
 
