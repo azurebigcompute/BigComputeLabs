@@ -31,16 +31,14 @@ cd /root
 tar -xf IScape04.23-s012lnx86.t.Z
 
 jetpack log "Starting XCELIUM installation."
-mkdir -p $CADENCE_INSTALL
 ./iscape/bin/iscape.sh -batch majorAction=install \
     cacheDirectory=$CACHE_DIR \
     SourceLocation='http://sw.cadence.com/is/XCELIUM1710/lnx86/Base' \
     ArchiveDirectory=$CACHE_DIR \
     InstallDirectory=$TEMP_DIR/cadence
 
-rsync -av  $TEMP_DIR/cadence $CADENCE_INSTALL
-
 jetpack log "XCELIUM installation complete."
+
 
 exit 0
 ./iscape/bin/iscape.sh -batch majorAction=install \

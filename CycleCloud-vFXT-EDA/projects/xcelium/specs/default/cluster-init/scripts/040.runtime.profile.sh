@@ -2,10 +2,10 @@
 
 yum install -y redhat-lsb.i686
 
-CADENCE_INSTALL=$(jetpack config cadence.install_dir)/cadence \
-    || CADENCE_INSTALL=$(jetpack config cyclecloud.mounts.vfxt.mountpoint)/cadence \
-    || CADENCE_INSTALL=$(jetpack config gluster.mountpoint)/cadence \
-    || CADENCE_INSTALL=/opt/tools/cadence
+CADENCE_INSTALL=$(jetpack config cadence.install_dir) \
+    || CADENCE_INSTALL=$(jetpack config cyclecloud.mounts.vfxt.mountpoint) \
+    || CADENCE_INSTALL=$(jetpack config gluster.mountpoint) \
+    || CADENCE_INSTALL=/opt/tools
 
 touch /etc/profile.d/cadence.sh
 echo "export CADENCE_INSTALL=${CADENCE_INSTALL}" >> /etc/profile.d/cadence.sh

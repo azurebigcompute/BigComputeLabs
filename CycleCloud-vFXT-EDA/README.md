@@ -20,6 +20,8 @@ This is a technical lab to help you use Azure CycleCloud to create, use, and man
 * Create files, perform I/O tests on the vFXT datacache.
 * Add an EDA toolkit to the cluster and run batch HPC jobs.
 
+_Make sure you have access to the private repo for this lab. https://github.com/azure/cyclecloud-vFXT_
+
 # Lab Content
 
 This lab relies heavily on a bash environment and will be assuming availability of the `az` cli either in Cloud.Shell or another bash environment.
@@ -38,15 +40,15 @@ Name=my-cc
 Location=westus2
 az container create -g ${ResourceGroup} --location ${Location} \
     --name ${Name} --dns-name-label ${DNSName} \
-    --image mvrequa/cc-beta:0 
-    --ip-address public --ports 80 443 \
+    --image mvrequa/cc-beta:7.5.0-d1d17caf \
+    --ip-address public --ports 8080 8443 \
     --memory 4 --cpu 2 \
     -e JAVA_HEAP_SIZE=2048 DNS_NAME=${DNSName} LOCATION=${Location}
 ```
 
 Sorry for the long invocation - we wish certain environment variables were available inside the container. This will take about 5 minutes for the container to come up, pull the image and start CycleCloud and initialize SSL certificate. After this time CycleCloud will be available at the container url:
 
-    https://${DNSName}.${Location}.azurecontainer.io
+    https://${DNSName}.${Location}.azurecontainer.io:8443
 
 ## 2. Configuring Cloud.Shell
 
@@ -99,7 +101,7 @@ Using the Cloud.Shell create a new cyclecloud configuration.  This will prompt y
 ```bash
 $ source ~/.venv/cycle/bin/activate
 $ cyclecloud config create airlift
-CycleServer URL: [http://localhost:8080] https://${DNSName}.${Location}.azurecontainer.io
+CycleServer URL: [http://localhost:8080] https://${DNSName}.${Location}.azurecontainer.io:8443
 CycleServer username: [user] 
 ...
 Generating CycleServer key...
@@ -127,7 +129,7 @@ At this point, pogo and cyclecloud are configured for use with your new CycleClo
 
 This lab will use a common ssh key. Add the ssh key to your Cloud.Shell environment.
 
-Copy the contents of this [ssh key](/ssh/cyclecloud.pem) to `~/.ssh/cyclecloud.pem`.
+#Copy the contents of this [ssh key](/ssh/cyclecloud.pem) to `~/.ssh/cyclecloud.pem`.
 
 ## 5. Add Avere vFXT to CycleCloud
 
@@ -136,7 +138,7 @@ The Avere vFXT cluster is not shipped with the product but rather a CycleCloud c
 ```bash
 mkdir ~/git
 cd ~/git
-git clone https://github.com/azure/cyclecloud-vFXT
+git clone git@github.com:Azure/cyclecloud-vFXT.git
 ```
 
 The project is now in your cloud shell.  This project comprises of an ARM Template, a CycleCloud Cluster template and CycleCloud projects.  There are two steps to add the project to CycleCloud.
@@ -144,8 +146,8 @@ The project is now in your cloud shell.  This project comprises of an ARM Templa
 ### Upload the project to your locker
 
 ```bash
-cd vfxt/projects/avere-vfxt
-cyclecloud project upload azure-locker
+cd cyclecloud-vFXT/projects/avere-vfxt
+cyclecloud project upload azure-storage
 ```
 
 This locker name `azure-locker` may be incorrect.  If you get an error message, retry the command with the locker name in the error message.
@@ -228,7 +230,7 @@ Primarily, we add the vFXT mount block.  This mount block then depends on the av
 
 These properties are all inherited by the execute nodes as well so the vfxt mount will appear on all nodes in the PBS cluster.
 
-## 7. Add an EDA application to the cluster.
+## 7. Add an EDA application to the cluster
 
 Now that we have a compute cluster with high-performance data cache CycleCloud has a framework for automatic "clustered" application deployment referred to as "cyclecloud projects". As one example we've packaged the [Cadence Xcelium](https://www.cadence.com/content/cadence-www/global/en_US/home/tools/system-design-and-verification/simulation-and-testbench-verification/xcelium-parallel-simulator.html) tool and Cadence has sponsored some temporary licenses to evaluate.
 
@@ -248,3 +250,21 @@ See that the `default` spec runs on the execute nodes for setting up the runtime
 Note that it can take some time to install the Xcelium tools.  Track it's progress in the cluster-init log:
 
     tail -f /opt/cycle/jetpack/logs/cluster-init/xcelium/install/scripts/050.install.sh.out
+
+
+## 7. Run EDA jobs on the cluster
+
+We'll be submitting jobs as the cluster.user on the PBScluster. There's one setup task to prepare your user to run workloads on the vFXT file system.
+
+```
+sudo su - cluster.user
+cp ${CADENCE_INSTALL}/examples/*sh ./
+./setup_workbench.sh
+```
+
+Then subsequently you can submit additional work with the run harness script.
+
+```
+cd work
+./run_xcelium.sh
+```

@@ -2,7 +2,10 @@
 
 NOW=$(date +%Y%m%d_%H%M%S)
 mkdir ~/work/$NOW
-ln -s ~/*sv ~/work/$NOW/
+for verify in ~/*sv; do
+  ln -s ${verify} ~/work/${NOW}/
+done
+
 cd ~/work/$NOW
 
 /bin/cat <<EOM >run_verification.pbs
@@ -12,7 +15,7 @@ cd ~/work/$NOW
 source /etc/profile.d/cadence.sh
 cd ~/work/$NOW
 for verify in *.sv; do
-    xrun -clean $verify -64bit -status
+    xrun -clean ${verify} -64bit -status
 done
 EOM
 
