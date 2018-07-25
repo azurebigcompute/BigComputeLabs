@@ -129,7 +129,7 @@ At this point, pogo and cyclecloud are configured for use with your new CycleClo
 
 This lab will use a common ssh key. Add the ssh key to your Cloud.Shell environment.
 
-#Copy the contents of this [ssh key](/ssh/cyclecloud.pem) to `~/.ssh/cyclecloud.pem`.
+#Copy the contents of this [ssh key](https://github.com/azurebigcompute/BigComputeLabs/blob/master/CycleCloud-vFXT-EDA/ssh/cyclecloud.pem) to `~/.ssh/cyclecloud.pem`.
 
 ## 5. Add Avere vFXT to CycleCloud
 
