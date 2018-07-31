@@ -35,12 +35,6 @@
             }
           },
           {
-            "name": "admin",
-            "properties": {
-              "addressPrefix": "10.0.2.0/28"
-            }
-          },
-          {
             "name": "user",
             "properties": {
               "addressPrefix": "10.0.3.0/24"
@@ -54,118 +48,6 @@
           }
         ],
         "virtualNetworkPeerings": []
-      },
-      "dependsOn": []
-    },
-    {
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "admin-nsg",
-      "apiVersion": "[variables('networkApiVersion')]",
-      "location": "[variables('resourceLocation')]",
-      "properties": {
-        "securityRules": [
-          {
-            "name": "default-allow-ssh",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "22",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Inbound",
-              "sourceAddressPrefixes": [],
-              "destinationAddressPrefixes": []
-            }
-          },
-          {
-            "name": "DenyAllVnetInbound",
-            "properties": {
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "*",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Deny",
-              "priority": 2000,
-              "direction": "Inbound",
-              "sourceAddressPrefixes": [],
-              "destinationAddressPrefixes": []
-            }
-          }
-        ]
-      },
-      "dependsOn": []
-    },
-    {
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "cycle-nsg",
-      "apiVersion": "[variables('networkApiVersion')]",
-      "location": "[variables('resourceLocation')]",
-      "properties": {
-        "securityRules": [
-          {
-            "name": "AllowSecuredCyclePortalInBound",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "VirtualNetwork",
-              "access": "Allow",
-              "priority": 2000,
-              "direction": "Inbound",
-              "sourceAddressPrefixes": [],
-              "destinationAddressPrefixes": []
-            }
-          },
-          {
-            "name": "AllowCyclePortalInBound",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "80",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "VirtualNetwork",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Inbound",
-              "sourceAddressPrefixes": [],
-              "destinationAddressPrefixes": []
-            }
-          }
-        ]
-      },
-      "dependsOn": []
-    },
-    {
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "adminjb_ip",
-      "apiVersion": "[variables('networkApiVersion')]",
-      "location": "[variables('resourceLocation')]",
-      "properties": {
-        "publicIPAddressVersion": "IPv4",
-        "publicIPAllocationMethod": "Static",
-        "idleTimeoutInMinutes": 4,
-        "dnsSettings": {
-          "domainNameLabel": "[concat('adminjb', variables('namingInfix'))]"
-        }
-      },
-      "dependsOn": []
-    },
-    {
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "cycleserver_ip",
-      "apiVersion": "[variables('networkApiVersion')]",
-      "location": "[variables('resourceLocation')]",
-      "properties": {
-        "publicIPAddressVersion": "IPv4",
-        "publicIPAllocationMethod": "Static",
-        "idleTimeoutInMinutes": 4,
-        "dnsSettings": {
-          "domainNameLabel": "[concat('cycleserver', variables('namingInfix'))]"
-        }
       },
       "dependsOn": []
     }
