@@ -50,8 +50,8 @@ This lab is intended for people who would like to learn how to use Azure CycleCl
 
 #### Labs
 
-- [ ] 1. [01 - Setup CycleCloud with ARM](/01-Setup%20CycleCloud%20with%20ARM/README.md)
-- [ ] 2. [02 - Creating a Simple Autoscaling HPC Cluster](/02-Creating%20a%20Simple%20Autoscaling%20HPC%20Cluster/README.md)
+- [ ] 1. [01 - Setup CycleCloud with ARM](/CycleCloud/01-Setup%20CycleCloud%20with%20ARM/README.md)
+- [ ] 2. [02 - Creating a Simple Autoscaling HPC Cluster](/CycleCloud/02-Creating%20a%20Simple%20Autoscaling%20HPC%20Cluster/README.md)
 
 
 ## Prerequisites
